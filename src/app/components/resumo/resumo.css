@@ -1,0 +1,52 @@
+/* Container alinha os cartões lado a lado com espaçamento uniforme */
+.container-resumo {
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+/* Estilização individual de cada cartão */
+.card-resumo {
+  flex: 1; /* Faz com que todos os 3 cartões tenham exatamente o mesmo tamanho */
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilo do texto de identificação (Entrada, Gasto...) */
+.card-resumo {
+  font-size: 14px;
+  color: #666666;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Estilo do valor numérico */
+.card-resumo span {
+  font-size: 24px;
+  color: #333333;
+}
+
+.card-resumo {
+  padding: 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Cores específicas */
+.card-positivo { border-left: 5px solid #472b8a; background: #e8f5e9; color:#472b8a}
+.card-negativo { border-left: 5px solid #c51c10; background: #ffebee; color:#c51c10}
+
+
+/* Classe de alerta para saldo negativo */
+.card-alerta { 
+  border-left: 5px solid #d32f2f; 
+  background: #ffcdd2; 
+  color: #b71c1c;
+}

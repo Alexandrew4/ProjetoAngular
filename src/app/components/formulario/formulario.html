@@ -1,0 +1,174 @@
+<div class="dashboard-container">
+      <header class="dashboard-header">
+        <h1>Controle Financeiro</h1>
+        <p>Gerencie suas receitas e despesas com facilidade</p>
+      </header>
+
+      <div class="dashboard-grid">
+        <!-- Coluna 1: Formulário de Lançamento -->
+        <div class="form-container">
+          <div class="card">
+            <h2>{{ editandoId ? 'Editar Transação' : 'Nova Transação' }}</h2>
+            
+            <form [formGroup]="transacaoForm" (ngSubmit)="onSubmit()">
+              <!-- Seleção do tipo de transação -->
+              <div class="form-row center">
+                <mat-button-toggle-group formControlName="tipo" aria-label="Tipo de Transação">
+                  <mat-button-toggle value="receita" class="btn-receita">
+                    <mat-icon>add_circle_outline</mat-icon>
+                    Receita
+                  </mat-button-toggle>
+                  <mat-button-toggle value="despesa" class="btn-despesa">
+                    <mat-icon>remove_circle_outline</mat-icon>
+                    Despesa
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+              </div>
+
+              <!-- Descrição -->
+              <div class="form-row">
+                <mat-form-field appearance="outline">
+                  <mat-label>Descrição</mat-label>
+                  <input matInput formControlName="descricao" placeholder="Ex: Salário, Supermercado...">
+                  <mat-error *ngIf="transacaoForm.get('descricao')?.hasError('required')">
+                    Descrição obrigatória.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Categoria -->
+              <div class="form-row">
+                <mat-form-field appearance="outline">
+                  <mat-label>Categoria</mat-label>
+                  <mat-select formControlName="categoria">
+                    <mat-option *ngFor="let cat of categoriasFiltradas" [value]="cat">
+                      {{ cat }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="transacaoForm.get('categoria')?.hasError('required')">
+                    Selecione uma categoria.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Data e Valor -->
+              <div class="form-grid-2">
+                <mat-form-field appearance="outline">
+                  <mat-label>Data</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="data" placeholder="dd/mm/aaaa">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="transacaoForm.get('data')?.hasError('required')">
+                    Data obrigatória.
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Valor</mat-label>
+                  <input matInput type="number" formControlName="valor" placeholder="0,00" min="0.01">
+                  <span matPrefix>R$&nbsp;</span>
+                  <mat-error *ngIf="transacaoForm.get('valor')?.hasError('required')">
+                    Valor obrigatório.
+                  </mat-error>
+                  <mat-error *ngIf="transacaoForm.get('valor')?.hasError('min')">
+                    Deve ser maior que 0.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Ações do Formulário -->
+              <div class="form-actions">
+                <button *ngIf="editandoId" mat-button type="button" (click)="cancelarEdicao()" class="btn-cancel">
+                  Cancelar
+                </button>
+                <button mat-flat-button color="primary" type="submit" [disabled]="transacaoForm.invalid">
+                  {{ editandoId ? 'Atualizar' : 'Salvar Lançamento' }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Coluna 2: Tabela de Transações -->
+        <div class="table-container">
+          <div class="card">
+            <div class="card-header-table">
+              <h2>Histórico de Lançamentos</h2>
+              
+            </div>
+
+            <!-- Tabela Material -->
+            <div class="table-responsive">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+                
+                <!-- Coluna Data -->
+                <ng-container matColumnDef="data">
+                  <th mat-header-cell *matHeaderCellDef> Data </th>
+                  <td mat-cell *matCellDef="let transacao"> 
+                    {{ transacao.data | date:'dd/MM/yyyy' }} 
+                  </td>
+                </ng-container>
+
+                <!-- Coluna Descrição -->
+                <ng-container matColumnDef="descricao">
+                  <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                  <td mat-cell *matCellDef="let transacao" class="text-bold"> 
+                    {{ transacao.descricao }} 
+                  </td>
+                </ng-container>
+
+                <!-- Coluna Categoria -->
+                <ng-container matColumnDef="categoria">
+                  <th mat-header-cell *matHeaderCellDef> Categoria </th>
+                  <td mat-cell *matCellDef="let transacao"> 
+                    <span class="cat-pill">{{ transacao.categoria }}</span>
+                  </td>
+                </ng-container>
+
+                <!-- Coluna Tipo (Receita/Despesa) -->
+                <ng-container matColumnDef="tipo">
+                  <th mat-header-cell *matHeaderCellDef> Tipo </th>
+                  <td mat-cell *matCellDef="let transacao">
+                    <span class="status-chip" [ngClass]="transacao.tipo">
+                      <mat-icon>{{ transacao.tipo === 'receita' ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                      {{ transacao.tipo | titlecase }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <!-- Coluna Valor -->
+                <ng-container matColumnDef="valor">
+                  <th mat-header-cell *matHeaderCellDef> Valor </th>
+                  <td mat-cell *matCellDef="let transacao" [ngClass]="transacao.tipo + '-color'" class="text-bold text-nowrap">
+                    {{ transacao.tipo === 'despesa' ? '-' : '' }}{{ transacao.valor | currency:'BRL' }}
+                  </td>
+                </ng-container>
+
+                <!-- Coluna Ações (Editar e Excluir) -->
+                <ng-container matColumnDef="acoes">
+                  <th mat-header-cell *matHeaderCellDef class="text-center"> Ações </th>
+                  <td mat-cell *matCellDef="let transacao" class="text-center actions-cell">
+                    <button mat-icon-button color="primary" matTooltip="Editar" (click)="carregarEdicao(transacao)">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" matTooltip="Excluir" (click)="deletarTransacao(transacao.id)">
+                      <mat-icon>delete_outline</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="colunasExibidas"></tr>
+                <tr mat-row *matRowDef="let row; columns: colunasExibidas;"></tr>
+
+                <!-- Linha exibida se a tabela estiver vazia -->
+                <tr class="mat-row" *matNoDataRow>
+                  <td class="mat-cell empty-table" colspan="6">
+                    Nenhum lançamento cadastrado no momento.
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

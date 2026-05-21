@@ -1,0 +1,40 @@
+<nav class="barra-menu">
+  
+  <h2 class="marca">
+    <mat-icon>account_balance</mat-icon>BlueBank
+  </h2>
+  
+  
+  <!-- Botão Home -->
+
+  <button mat-button (click)="navegarPara('home')">
+    <mat-icon>trending_up</mat-icon>
+    Dashboard
+  </button>
+
+  <!-- Botão Features -->
+  <button mat-button (click)="navegarPara('produtos')">
+    <mat-icon>attach_money</mat-icon>
+    Perfil Financeiro
+  </button>
+
+  <!-- Botão Projects com Submenu -->
+  <button mat-button [matMenuTriggerFor]="submenuProjetos">
+    <mat-icon>swap_horiz</mat-icon>
+    Transações
+    <mat-icon>arrow_drop_down</mat-icon>
+  </button>
+
+  <!-- Definição do Submenu (fica escondido até o clique) -->
+  <mat-menu #submenuProjetos="matMenu">
+    <button mat-menu-item (click)="navegarPara('servicos')">
+      <mat-icon>rocket_launch</mat-icon>
+      <span>Lançamentos</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>search</mat-icon>
+      <span>Pesquisa</span>
+    </button>
+  </mat-menu>
+
+  </nav>
