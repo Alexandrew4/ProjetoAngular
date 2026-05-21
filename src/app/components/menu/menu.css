@@ -1,35 +1,46 @@
-
 .barra-menu {
   display: flex;
-  gap: 50px;
+  align-items: center;
+  justify-content: space-between ; 
   padding: 10px 26px;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
-  border-radius: 12px; /* Cantos arredondados na barra */
+  border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
   height: 80px;
-
 }
 
-/* Garante um espaçamento legal entre o ícone e o texto do botão */
-.barra-menu button mat-icon {
-  margin-right: 4px;
-  
-}
-
-.marca{
-  
+.menu-desktop {
   display: flex;
-  left: 0;       /* Encosta na borda direita */
-  top: 5%;       /* Começa no meio da altura da tela */
-  
-  /* Opcional: estilo para destacar */
-  padding: 20px;
+  align-items: center;
+  margin-right: auto; 
+  margin-left: 180px; 
+  gap: 10px;
+}
+
+
+.marca {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
   background-color: blue;
   border-radius: 10px;
   color: white;
-  z-index: 1000;  /* Garante que fique acima de outros elementos */
+  margin: 0;
+}
+
+/* Ocultar o sanduíche em desktop */
+.menu-mobile-trigger {
+  display: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .menu-desktop {
+    display: none; /* Esconde botões normais no celular */
+  }
+  
+  .menu-mobile-trigger {
+    display: block; /* Mostra o sanduíche no celular */
+  }
 }

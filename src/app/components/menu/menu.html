@@ -1,40 +1,42 @@
 <nav class="barra-menu">
-  
   <h2 class="marca">
     <mat-icon>account_balance</mat-icon>BlueBank
   </h2>
-  
-  
-  <!-- Botão Home -->
 
-  <button mat-button (click)="navegarPara('home')">
-    <mat-icon>trending_up</mat-icon>
-    Dashboard
-  </button>
-
-  <!-- Botão Features -->
-  <button mat-button (click)="navegarPara('produtos')">
-    <mat-icon>attach_money</mat-icon>
-    Perfil Financeiro
-  </button>
-
-  <!-- Botão Projects com Submenu -->
-  <button mat-button [matMenuTriggerFor]="submenuProjetos">
-    <mat-icon>swap_horiz</mat-icon>
-    Transações
-    <mat-icon>arrow_drop_down</mat-icon>
-  </button>
-
-  <!-- Definição do Submenu (fica escondido até o clique) -->
-  <mat-menu #submenuProjetos="matMenu">
-    <button mat-menu-item (click)="navegarPara('servicos')">
-      <mat-icon>rocket_launch</mat-icon>
-      <span>Lançamentos</span>
+  <div class="menu-desktop">
+    <button mat-button *ngFor="let item of menuItems" (click)="navegarPara(item.id)">
+      <mat-icon>{{item.icon}}</mat-icon> {{item.label}}
     </button>
-    <button mat-menu-item>
-      <mat-icon>search</mat-icon>
-      <span>Pesquisa</span>
+    
+    <!-- Gatilho Desktop -->
+    <button mat-button [matMenuTriggerFor]="submenuProjetos">
+      <mat-icon>swap_horiz</mat-icon> Transações <mat-icon>arrow_drop_down</mat-icon>
     </button>
-  </mat-menu>
+  </div>
 
-  </nav>
+  <button mat-icon-button class="menu-mobile-trigger" [matMenuTriggerFor]="menuMobile">
+    <mat-icon>menu</mat-icon>
+  </button>
+</nav>
+
+<!-- MENU MOBILE (Dropdown principal) -->
+<mat-menu #menuMobile="matMenu">
+  <button mat-menu-item *ngFor="let item of menuItems" (click)="navegarPara(item.id)">
+    <mat-icon>{{item.icon}}</mat-icon>{{item.label}}
+  </button>
+  
+  <!-- Gatilho Mobile que chama o MESMO submenu -->
+  <button mat-menu-item [matMenuTriggerFor]="submenuProjetos">
+    <mat-icon>swap_horiz</mat-icon>Transações
+  </button>
+</mat-menu>
+
+<!-- DEFINIÇÃO DO SUBMENU (ÚNICA) -->
+<mat-menu #submenuProjetos="matMenu">
+  <button mat-menu-item (click)="navegarPara('lancamentos')">
+    <mat-icon>rocket_launch</mat-icon> <span>Lançamentos</span>
+  </button>
+  <button mat-menu-item (click)="navegarPara('pesquisa')">
+    <mat-icon>search</mat-icon> <span>Pesquisa</span>
+  </button>
+</mat-menu>
