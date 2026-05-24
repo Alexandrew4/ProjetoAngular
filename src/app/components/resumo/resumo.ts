@@ -15,10 +15,10 @@ export class Resumo {
   listaResumo = computed(() => {
     const valores = this.transacaoService.totais();
     return [
-      { label: 'Entrada', value: valores.entradas, classe: 'entrada' },
-      { label: 'Gasto', value: valores.saidas, classe: 'gasto' },
-      { label: 'Investimento', value: valores.investimentos, classe: 'investimento' },
-      { label: 'Saldo', value: valores.saldo, classe: 'saldo' }
+      { label: 'Entrada', value: valores.entradas, icone: 'arrow_upward', ordemMobile: 1 },
+      { label: 'Gasto', value: valores.saidas, icone: 'arrow_downward', ordemMobile: 2 },
+      { label: 'Investimento', value: valores.investimentos, icone: 'trending_up', ordemMobile: 3 },
+      { label: 'Saldo', value: valores.saldo, icone: 'account_balance_wallet', ordemMobile: 4 }
     ];
   });
 }

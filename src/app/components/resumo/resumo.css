@@ -1,72 +1,141 @@
+/* ==========================================================================
+   CONTAINER DO RESUMO (Grid Inteligente & Mobile First)
+   ========================================================================== */
+
 .container-resumo {
   display: flex;
-  flex-direction: column; /* Mobile empilhado */
+  flex-direction: column; /* Empilhado no mobile */
   gap: 16px;
   margin: 1.5rem 0;
   width: 100%;
 }
 
-/* Força o card de receita a subir para o topo no Mobile */
-.card-resumo.card-positivo {
-  order: 1; /* Primeiro da fila */
-}
-
-.card-resumo.card-negativo {
-  order: 2; /* Segundo da fila */
-}
-
-/* O card de Saldo Total (ou alerta) fica por último */
-.card-resumo:not(.card-positivo):not(.card-negativo) {
-  order: 3; 
-}
-
-/* Computadores e Tablets Grandes */
+/* Telas Maiores (Computadores e Tablets) */
 @media (min-width: 768px) {
   .container-resumo {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Volta ao grid padrão de 3 colunas */
+    grid-template-columns: repeat(4, 1fr); /* 4 colunas bem distribuídas */
   }
   
-  /* Reseta a ordem no desktop para seguir a sequência natural do seu HTML */
-  .card-resumo.card-positivo,
-  .card-resumo.card-negativo,
-  .card-resumo:not(.card-positivo):not(.card-negativo) {
-    order: unset;
+  .card-resumo {
+    order: unset !important; /* Reseta o comportamento de ordem no desktop */
   }
 }
 
+/* ==========================================================================
+   ESTILIZAÇÃO BASE DO CARD MODERNIZADO
+   ========================================================================== */
+
 .card-resumo {
-  background-color: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 1.25rem;
+  background-color: var(--surface-card, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 16px; /* Bordas mais suaves e modernas */
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  gap: 12px;
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.05));
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .card-resumo:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.08));
+}
+
+/* Alinhamento do cabeçalho interno do Card */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .card-resumo p {
   margin: 0;
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--text-secondary, #64748b);
   text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.card-resumo span {
-  font-size: 1.75rem;
   font-weight: 700;
-  color: #0f172a;
+  letter-spacing: 0.7px;
 }
 
-.card-positivo { border-left: 5px solid #10b981; }
-.card-negativo { border-left: 5px solid #ef4444; }
-.card-alerta { border-left: 5px solid #dc2626; background-color: #fef2f2; }
+.card-valor {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary, #0f172a);
+}
+
+/* Estilo Base dos Círculos dos Ícones */
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+
+.card-icon span {
+  font-size: 1.25rem !important;
+}
+
+/* ==========================================================================
+   VARIAÇÕES DE CORES DOS CARDS (Identidade Visual Premium)
+   ========================================================================== */
+
+/* 1. Entrada (Verde Confiável) */
+.card-entrada {
+  background: linear-gradient(135deg, #ffffff, #f0fdf4);
+  border-left: 5px solid #10b981;
+}
+.card-entrada .card-icon {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+/* 2. Gasto (Vermelho Elegante) */
+.card-gasto {
+  background: linear-gradient(135deg, #ffffff, #fef2f2);
+  border-left: 5px solid #ef4444;
+}
+.card-gasto .card-icon {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* 3. Investimento (Azul de Crescimento) */
+.card-investimento {
+  background: linear-gradient(135deg, #ffffff, #eff6ff);
+  border-left: 5px solid #3b82f6;
+}
+.card-investimento .card-icon {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+/* 4. Saldo Positivo (Roxo de Patrimônio Estável) */
+.card-saldo-positivo {
+  background: linear-gradient(135deg, #ffffff, #faf5ff);
+  border-left: 5px solid #8b5cf6;
+}
+.card-saldo-positivo .card-icon {
+  background-color: #f3e8ff;
+  color: #6d28d9;
+}
+
+/* 5. Saldo Negativo (Alerta Crítico) */
+.card-saldo-negativo {
+  background: linear-gradient(135deg, #ffffff, #fff5f5);
+  border-left: 5px solid #dc2626;
+  animation: pulse-border 2s infinite ease-in-out;
+}
+.card-saldo-negativo .card-icon {
+  background-color: #fecdd3;
+  color: #9f1239;
+}
+.card-saldo-negativo .card-valor {
+  color: #dc2626;
+}

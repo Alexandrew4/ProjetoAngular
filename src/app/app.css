@@ -1,27 +1,41 @@
 :host {
   display: block;
+  background-color: var(--bg-primary, #f8fafc); /* Um fundo suave para o app */
+  min-height: 100vh;
 }
 
-/* Área centralizadora do Dashboard */
-.dashboard-container {
+/* ==========================================================================
+   1. ESTRUTURA E ÁREA CENTRALIZADORA DO DASHBOARD
+   ========================================================================== */
+
+.conteudo-principal {
   max-width: 1440px;
   margin: 0 auto;
   padding: 1.5rem;
   box-sizing: border-box;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Espaçamento saudável entre os blocos ativos (@if) */
 }
 
-/* Força o componente de resumo a quebrar linha no topo */
-app-resumo {
+/* Garante comportamento estrutural correto para as tags personalizadas do Angular */
+app-resumo, 
+app-perfil-financeiro, 
+app-formulario, 
+app-tabela {
   display: block;
-  margin-bottom: 2rem;
   width: 100%;
 }
 
-/* GRID PRINCIPAL: Corrige o bug do empilhamento */
-.dashboard-grid {
+
+/* ==========================================================================
+   2. GRID DE TRANSAÇÕES (Formulário + Tabela lado a lado)
+   ========================================================================== */
+
+.modulo-transacoes {
   display: grid;
-  grid-template-columns: 1fr; /* Mobile em coluna única */
+  grid-template-columns: 1fr; /* Mobile em coluna única e empilhada */
   gap: 2rem;
   align-items: start;
   width: 100%;
@@ -29,19 +43,19 @@ app-resumo {
 
 /* Computadores e Telas Grandes */
 @media (min-width: 992px) {
-  .dashboard-grid {
-    /* Formulário com tamanho perfeito fixo, tabela ganha a área flexível */
-    grid-template-columns: 380px minmax(0, 1fr);
+  .modulo-transacoes {
+    /* O formulário ganha um tamanho fixo perfeito (380px) e a tabela consome o resto */
+    grid-template-columns: 380px minmax(0, 1fr); 
+    gap: 2.5rem; /* Um pouco mais de respiro no desktop */
   }
 }
 
-/* Garante comportamento estrutural correto para tags do Angular */
-app-formulario, app-tabela {
-  display: block;
-  width: 100%;
-}
 
-/* Estilo da mensagem informativa de tela */
+/* ==========================================================================
+   3. COMPONENTES EXTRA / NOTIFICAÇÕES
+   ========================================================================== */
+
+/* Estilo da mensagem informativa de tela (opcional) */
 .conteudo {
   padding: 0.75rem 1.5rem;
   margin: 1rem auto 0;
@@ -52,3 +66,4 @@ app-formulario, app-tabela {
   background-color: #f1f5f9;
   border-radius: 8px;
 }
+

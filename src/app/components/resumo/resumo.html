@@ -2,13 +2,21 @@
   <div class="card-resumo" 
        *ngFor="let item of listaResumo()"
        [ngClass]="{
-         'card-positivo': item.label === 'Entrada' || (item.label === 'Saldo' && item.value >= 0), 
-         'card-negativo': item.label === 'Gasto',
+         'card-entrada': item.label === 'Entrada', 
+         'card-gasto': item.label === 'Gasto',
          'card-investimento': item.label === 'Investimento',
-         'card-alerta': item.label === 'Saldo' && item.value < 0
-       }">
+         'card-saldo-positivo': item.label === 'Saldo' && item.value >= 0,
+         'card-saldo-negativo': item.label === 'Saldo' && item.value < 0
+       }"
+       [style.order]="item.ordemMobile">
     
-    <p>{{ item.label }}</p>
-    <span>{{ item.value | currency:'BRL' }}</span>
+    <div class="card-header">
+      <p>{{ item.label }}</p>
+      <div class="card-icon">
+        <span class="material-icons">{{ item.icone }}</span>
+      </div>
+    </div>
+    
+    <span class="card-valor">{{ item.value | currency:'BRL' }}</span>
   </div>
 </div>

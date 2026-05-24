@@ -1,46 +1,76 @@
 .barra-menu {
   display: flex;
   align-items: center;
-  justify-content: space-between ; 
+  justify-content: space-between; 
   padding: 10px 26px;
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   height: 80px;
+  box-sizing: border-box;
 }
 
 .menu-desktop {
   display: flex;
   align-items: center;
   margin-right: auto; 
-  margin-left: 180px; 
+  margin-left: 60px; /* Reduzido de 180px para dar mais espaço aos botões */
   gap: 10px;
 }
-
 
 .marca {
   display: flex;
   align-items: center;
+  gap: 8px;
   padding: 10px 20px;
-  background-color: blue;
+  background-color: #2563eb; /* Um azul mais moderno/fintech que o azul puro */
   border-radius: 10px;
   color: white;
   margin: 0;
+  font-size: 1.15rem;
 }
 
-/* Ocultar o sanduíche em desktop */
+/* Ocultar o gatilho do menu mobile no desktop */
 .menu-mobile-trigger {
-  display: none;
+  display: none !important;
 }
 
-/* Responsividade */
+/* ==========================================================================
+   ESTADOS DE ATIVAÇÃO DOS BOTÕES
+   ========================================================================== */
+
+/* Botão Ativo no Desktop */
+.menu-desktop button.botao-ativo {
+  background-color: var(--bg-secondary, #f1f5f9) !important;
+  color: #2563eb !important; 
+  font-weight: 600;
+}
+
+/* Botão Ativo no Dropdown Mobile */
+::v-deep button.mat-menu-item.botao-ativo {
+  color: #2563eb !important;
+  background-color: var(--bg-secondary, #f1f5f9) !important;
+  font-weight: 600;
+}
+
+.divisor-menu {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 4px 0;
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (MOBILE)
+   ========================================================================== */
 @media (max-width: 768px) {
   .menu-desktop {
-    display: none; /* Esconde botões normais no celular */
+    display: none !important; /* Some com as abas horizontais */
   }
   
   .menu-mobile-trigger {
-    display: block; /* Mostra o sanduíche no celular */
+    display: flex !important; /* Torna o botão sanduíche perfeitamente visível */
+    align-items: center;
+    justify-content: center;
   }
 }

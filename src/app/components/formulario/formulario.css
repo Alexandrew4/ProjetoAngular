@@ -1,3 +1,7 @@
+/* ==========================================================================
+   1. ESTRUTURA E CARD DO FORMULÁRIO
+   ========================================================================== */
+
 .card-formulario {
   background: var(--surface-card);
   border-radius: 16px;
@@ -22,41 +26,113 @@ mat-form-field {
   margin-bottom: 1.5rem; 
 }
 
-.botoes-acao {
+
+/* ==========================================================================
+   2. SELETOR DE TIPO DE TRANSAÇÃO (Vertical & Sem falhas de borda)
+   ========================================================================== */
+
+.center-toggle {
   display: flex;
-  gap: 12px;
-  margin-top: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
   width: 100%;
 }
 
-.botoes-acao button {
-  flex: 1;
-  padding: 24px 0 !important; /* Seus botões robustos e elegantes */
-  font-weight: 600;
-  letter-spacing: 0.3px;
+/* Container Principal do Grupo Toggle */
+.custom-toggle-group {
+  display: flex !important;
+  flex-direction: column !important; /* Empilha os botões um em cima do outro */
+  width: 100%;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important; /* Arredondamento limpo nas pontas */
+  overflow: hidden; /* Impede que o fundo dos botões "vaze" nas curvas */
+  background: transparent !important;
 }
 
+/* Ajuste individual de cada botão */
+.custom-toggle-group mat-button-toggle {
+  width: 100%;
+  border-right: none !important; /* Remove as bordas laterais nativas do Material */
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: 1px solid var(--border-color) !important; /* Divisória horizontal perfeita */
+  background: var(--surface-card, #ffffff);
+  transition: background-color 0.2s ease;
+}
+
+/* Remove a borda inferior do último botão para não duplicar com o container */
+.custom-toggle-group mat-button-toggle:last-child {
+  border-bottom: none !important;
+}
+
+/* Limpa estilos residuais do botão HTML nativo injetado pelo Angular Material */
+.custom-toggle-group ::v-deep button.mat-button-toggle-button {
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+/* Alinhamento do conteúdo (Ícone + Texto) */
+.custom-toggle-group ::v-deep .mat-button-toggle-label-content {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 0 !important; /* Altura robusta e elegante */
+  font-weight: 600;
+  color: var(--text-secondary, #64748b);
+}
+
+/* Estados ativos do Toggle (Selecionado) */
+.custom-toggle-group mat-button-toggle.mat-button-toggle-checked {
+  background-color: var(--bg-secondary, #f1f5f9) !important;
+}
+
+.custom-toggle-group mat-button-toggle.mat-button-toggle-checked ::v-deep .mat-button-toggle-label-content {
+  color: var(--text-primary) !important;
+}
+
+/* Cores dinâmicas nos ícones quando selecionados */
+.custom-toggle-group mat-button-toggle.toggle-despesa.mat-button-toggle-checked mat-icon {
+  color: #ef4444; /* Vermelho */
+}
+.custom-toggle-group mat-button-toggle.toggle-investimento.mat-button-toggle-checked mat-icon {
+  color: #3b82f6; /* Azul */
+}
+.custom-toggle-group mat-button-toggle.toggle-receita.mat-button-toggle-checked mat-icon {
+  color: #10b981; /* Verde */
+}
+
+
 /* ==========================================================================
-   NOVAS REGRAS: Suporte ao Gerenciador de Categorias Inline 
-   (Mantendo o alinhamento e o grid original dos seus inputs de metade)
+   3. GERENCIADOR DE CATEGORIAS INLINE (Suporte ao CRUD Dinâmico)
    ========================================================================== */
 
 .container-categoria-dinamica {
   position: relative;
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center; /* Alinha o mat-form-field e a engrenagem perfeitamente pelo centro */
+  gap: 8px; /* Espaço curto e controlado para o botão não desgarrar */
+  margin-bottom: 1.5rem; /* ALTERAÇÃO: Cria o distanciamento perfeito em relação ao campo da data abaixo */
 }
 
 .field-com-botao {
   width: 100% !important;
   flex: 1;
+  margin-bottom: 0 !important; /* Mantém zerado para o botão não quebrar a linha */
 }
 
-/* Alinha a engrenagem perfeitamente com a altura do mat-form-field outline */
+/* Ajuste fino na engrenagem de configuração para colar ao mat-form-field */
 .btn-config-categoria {
-  margin-top: 6px;
+  margin: 0 !important; 
+  padding: 0 !important;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--text-secondary, #64748b);
+  transform: translateY(-2px); /* Compensação sutil para centralizar com o estilo outline do Material */
 }
 
 /* Painel flutuante de CRUD: Se adapta exatamente ao tamanho do input da metade */
@@ -149,15 +225,21 @@ mat-form-field {
   color: var(--text-primary);
 }
 
-/* Estilização para o Toggle Group centralizado que colocamos no HTML */
-.center-toggle {
+
+/* ==========================================================================
+   4. BOTÕES DE AÇÃO DO FORMULÁRIO (Submeter / Cancelar)
+   ========================================================================== */
+
+.botoes-acao {
   display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
+  gap: 12px;
+  margin-top: 1rem;
+  width: 100%;
 }
 
-.custom-toggle-group {
-  border-radius: 24px !important;
-  border: 1px solid var(--border-color) !important;
-  overflow: hidden;
+.botoes-acao button {
+  flex: 1;
+  padding: 24px 0 !important; /* Seus botões robustos e elegantes */
+  font-weight: 600;
+  letter-spacing: 0.3px;
 }

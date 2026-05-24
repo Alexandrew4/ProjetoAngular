@@ -1,62 +1,33 @@
 <nav class="barra-menu">
-  <h2 class="marca">
+  <h2 class="marca" (click)="navegarPara('todas')" style="cursor: pointer;">
     <mat-icon>account_balance</mat-icon>BlueBank
   </h2>
 
   <div class="menu-desktop">
-    <button mat-button *ngFor="let item of menuItems" (click)="navegarPara(item.id)">
+    <button mat-button 
+            *ngFor="let item of menuItems" 
+            (click)="navegarPara(item.id)"
+            [class.botao-ativo]="telaAtiva === item.id">
       <mat-icon>{{item.icon}}</mat-icon> {{item.label}}
-    </button>
-    
-    <!-- Gatilho Desktop - Transações -->
-    <button mat-button [matMenuTriggerFor]="submenuProjetos">
-      <mat-icon>swap_horiz</mat-icon> Transações <mat-icon>arrow_drop_down</mat-icon>
-    </button>
-
-    <!-- NOVO: Gatilho Desktop - Investimentos -->
-    <button mat-button [matMenuTriggerFor]="submenuInvestimentos">
-      <mat-icon>trending_up</mat-icon> Investimentos <mat-icon>arrow_drop_down</mat-icon>
     </button>
   </div>
 
-  <button mat-icon-button class="menu-mobile-trigger" [matMenuTriggerFor]="menuMobile">
+  <button mat-icon-button 
+          class="menu-mobile-trigger" 
+          [matMenuTriggerFor]="menuMobile">
     <mat-icon>menu</mat-icon>
   </button>
 </nav>
 
-<!-- MENU MOBILE (Dropdown principal) -->
 <mat-menu #menuMobile="matMenu">
-  <button mat-menu-item *ngFor="let item of menuItems" (click)="navegarPara(item.id)">
+  <button mat-menu-item (click)="navegarPara('todas')" [class.botao-ativo]="telaAtiva === 'todas'">
+    <mat-icon>visibility</mat-icon>Mostrar Tudo
+  </button>
+  <hr class="divisor-menu" />
+  <button mat-menu-item 
+          *ngFor="let item of menuItems" 
+          (click)="navegarPara(item.id)"
+          [class.botao-ativo]="telaAtiva === item.id">
     <mat-icon>{{item.icon}}</mat-icon>{{item.label}}
-  </button>
-  
-  <!-- Gatilho Mobile - Transações -->
-  <button mat-menu-item [matMenuTriggerFor]="submenuProjetos">
-    <mat-icon>swap_horiz</mat-icon>Transações
-  </button>
-
-  <!-- NOVO: Gatilho Mobile - Investimentos -->
-  <button mat-menu-item [matMenuTriggerFor]="submenuInvestimentos">
-    <mat-icon>trending_up</mat-icon>Investimentos
-  </button>
-</mat-menu>
-
-<!-- DEFINIÇÃO DO SUBMENU - TRANSAÇÕES -->
-<mat-menu #submenuProjetos="matMenu">
-  <button mat-menu-item (click)="navegarPara('lancamentos')">
-    <mat-icon>rocket_launch</mat-icon> <span>Lançamentos</span>
-  </button>
-  <button mat-menu-item (click)="navegarPara('pesquisa')">
-    <mat-icon>search</mat-icon> <span>Pesquisa</span>
-  </button>
-</mat-menu>
-
-<!-- NOVO: DEFINIÇÃO DO SUBMENU - INVESTIMENTOS -->
-<mat-menu #submenuInvestimentos="matMenu">
-  <button mat-menu-item (click)="navegarPara('investimentos-painel')">
-    <mat-icon>dashboard</mat-icon> <span>Painel Geral</span>
-  </button>
-  <button mat-menu-item (click)="navegarPara('investimentos-lci')">
-    <mat-icon>account_balance_wallet</mat-icon> <span>LCI / LCA</span>
-  </button>
+  </button>  
 </mat-menu>

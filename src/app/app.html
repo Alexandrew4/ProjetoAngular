@@ -1,21 +1,20 @@
-<app-menu (aoSelecionar)="mudarTela($event)"></app-menu>
+<app-menu [telaAtiva]="telaAtual" (aoSelecionar)="mudarTela($event)"></app-menu>
 
-<div class="conteudo">
-  <p>Você está na tela: {{ telaAtual }}</p>
-  <app-perfil-financeiro></app-perfil-financeiro>
-</div>
-
-<!-- CONTAINER PRINCIPAL -->
-<div class="dashboard-container">
+<main class="conteudo-principal">
   
-  <app-resumo></app-resumo>
+  @if (telaAtual === 'perfil-financeiro' || telaAtual === 'todas') {
+    <app-perfil-financeiro></app-perfil-financeiro>
+  }
   
-  <!-- O GRID QUE UNE OS DOIS -->
-  <div class="dashboard-grid">
-    <app-formulario #formComponent></app-formulario>
-    <app-tabela (editar)="formComponent.receberDadosParaEdicao($event)"></app-tabela>
-  </div>
+  @if (telaAtual === 'dashboard' || telaAtual === 'todas') {
+    <app-resumo></app-resumo>
+  }
+  
+  @if (telaAtual === 'transação' || telaAtual === 'todas') {
+    <div class="modulo-transacoes">
+      <app-formulario></app-formulario>
+      <app-tabela></app-tabela>
+    </div>
+  }
 
-</div>
-
-<router-outlet />
+</main>

@@ -1,5 +1,4 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { Menu } from './components/menu/menu';
 import { Resumo } from './components/resumo/resumo';
 import { FormularioComponent } from './components/formulario/formulario';
@@ -8,18 +7,29 @@ import { PerfilFinanceiroComponent } from './components/perfil/perfil';
 
 @Component({
   selector: 'app-root',
-  standalone: true, // <--- ADICIONE ESTA LINHA AQUI
-  imports: [RouterOutlet, Tabela, Menu, Resumo, FormularioComponent,PerfilFinanceiroComponent ],
+  standalone: true,
+  imports: [
+    Tabela, 
+    Menu, 
+    Resumo, 
+    FormularioComponent, 
+    PerfilFinanceiroComponent
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-
 export class App {
+  // Começa mostrando todas as telas juntas por padrão
+  telaAtual: string = 'todas'; 
 
-  telaAtual:string = 'home';
-
-  mudarTela(idDaNovaTela:string){
-    this.telaAtual=idDaNovaTela;
+  mudarTela(idDaNovaTela: string): void {
+    // Se clicar na aba que já está aberta, ela desativa e mostra "todas"
+    if (this.telaAtual === idDaNovaTela) {
+      this.telaAtual = 'todas';
+    } else {
+      // Senão, ativa apenas a tela clicada
+      this.telaAtual = idDaNovaTela;
+    }
   }
 
   protected readonly title = signal('projeto-angular');
