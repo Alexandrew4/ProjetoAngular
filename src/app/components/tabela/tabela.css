@@ -10,11 +10,20 @@
   width: 100%;
 }
 
+/* Estrutura do Cabeçalho com Filtros */
 .header-historico {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.25rem;
   margin-bottom: 1.25rem;
+}
+
+.titulo-secao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .header-historico h2 {
@@ -32,9 +41,70 @@
   padding: 4px 12px;
   border-radius: 20px;
   border: 1px solid var(--border-color);
+  width: fit-content;
 }
 
-/* Melhora a rolagem em telas pequenas sem esmagar as colunas */
+/* Elementos dos Filtros */
+.filtros-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filtro-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.filtro-item label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.custom-input {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--surface-card);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  height: 36px;
+  box-sizing: border-box;
+}
+
+.custom-input:focus {
+  border-color: var(--primary, #3f51b5);
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.1);
+}
+
+select.custom-input {
+  cursor: pointer;
+  padding-right: 1.25rem;
+  min-width: 100px;
+}
+
+input[type="date"].custom-input {
+  min-width: 130px;
+}
+
+.btn-limpar {
+  color: var(--danger, #ef4444);
+  width: 36px !important;
+  height: 36px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estrutura da Tabela e Células */
 .table-container {
   width: 100%;
   overflow-x: auto;
@@ -70,7 +140,7 @@
   background-color: #fafafa !important;
 }
 
-/* Badges estilizadas */
+/* Componentes Visuais (Badges e Cores) */
 .badge-categoria {
   background: #f1f5f9;
   color: var(--text-secondary);
@@ -83,15 +153,26 @@
 .badge-tipo {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  gap: 6px;
   font-size: 0.75rem;
   font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
 }
 
 .badge-tipo.receita { background: #d1fae5; color: #065f46; }
 .badge-tipo.despesa { background: #fee2e2; color: #991b1b; }
+
+.badge-tipo.investimento {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.investimento-color {
+  color: #0369a1 !important;
+}
 
 .mini-icon {
   font-size: 14px !important;
@@ -141,63 +222,55 @@
   margin-bottom: 1rem;
 }
 
-/* ... mantenha o restante do arquivo igual e ajuste/adicione estas regras: */
+/* Configurações de Data para Desktop */
+.data-resumida { display: none; }
+.data-completa { display: inline; }
 
-.badge-tipo {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 6px 12px;
-  border-radius: 20px; /* Deixa em formato de pílula */
-  transition: all 0.2s ease;
-}
-
-.badge-tipo.receita { background: #d1fae5; color: #065f46; }
-.badge-tipo.despesa { background: #fee2e2; color: #991b1b; }
-
-/* --- CONFIGURAÇÕES PADRÃO (DESKTOP) --- */
-
-/* Por padrão, a data curta fica escondida no computador */
-.data-resumida {
-  display: none;
-}
-.data-completa {
-  display: inline;
-}
-
-/* --- RESPONSIVIDADE ULTRA-COMPACTA (MOBILE) --- */
-/* --- RESPONSIVIDADE: JUNÇÃO DAS SUGESTÕES 2 E 3 (APENAS MOBILE) --- */
-/* --- RESPONSIVIDADE COMPLETA DO HISTÓRICO (TELA INFERIOR A 768px) --- */
+/* --- RESPONSIVIDADE (MOBILE) --- */
 @media (max-width: 768px) {
-  
-  /* 1. TROCA DO FORMATO DA DATA (Esconde a completa, mostra a resumida dd/mm/yy) */
-  .data-completa {
-    display: none !important;
-  }
-  .data-resumida {
-    display: inline !important;
+  .header-historico {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
 
-  /* 2. COMPACTAÇÃO DO TIPO (Transforma a pílula em um círculo contendo apenas o ícone) */
+  .filtros-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .filtro-item { width: 100%; }
+
+  .custom-input {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.25rem;
+  }
+
+  .btn-limpar {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+  }
+
+  .data-completa { display: none !important; }
+  .data-resumida { display: inline !important; }
+
   .badge-tipo {
     padding: 0 !important;
     width: 28px !important;
     height: 28px !important;
-    border-radius: 50% !important; /* Transforma em bolinha perfeita */
+    border-radius: 50% !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
-  /* Oculta estritamente as letras ("Receita"/"Despesa") salvando o mat-icon */
-  .badge-tipo .texto-tipo {
-    display: none !important;
-  }
-
-  /* Centraliza e calibra o ícone sobrevivente dentro da bolinha */
+  .badge-tipo .texto-tipo { display: none !important; }
+  
   .badge-tipo mat-icon {
     margin: 0 !important;
     font-size: 16px !important;
@@ -205,22 +278,18 @@
     height: 16px !important;
   }
 
-  /* 3. REMOÇÃO DO CABEÇALHO (Ganha espaço vertical precioso no mobile) */
   .custom-table thead,
   .custom-table .mat-mdc-header-row {
     display: none !important;
   }
 
-  .card-historico {
-    padding: 1rem;
-  }
+  .card-historico { padding: 1rem; }
 
-  /* 4. REDUÇÃO DOS BOTÕES DE AÇÃO (Evita que a tabela crie barra de rolagem horizontal) */
   .action-header,
   td.mat-mdc-cell.action-cells {
     width: 70px !important;
     min-width: 70px !important;
-    gap: 2px !important; /* Deixa o Editar e Excluir mais próximos */
+    gap: 2px !important;
     padding-right: 4px !important;
   }
   
@@ -237,7 +306,6 @@
     height: 18px !important;
   }
 
-  /* Extra: Reduz levemente o estofamento das células comuns para apertar o layout */
   .custom-table td.mat-mdc-cell {
     padding: 12px 8px !important;
     font-size: 0.8rem !important;

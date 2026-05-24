@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class StorageService {
   private readonly KEY = 'transacoes_db';
 
-  salvar(dados: any[]) {
+  salvar(dados: any[]): void {
     localStorage.setItem(this.KEY, JSON.stringify(dados));
   }
 

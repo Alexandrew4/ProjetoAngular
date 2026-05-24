@@ -38,13 +38,12 @@
       </span>
     </div>
 
-    <div class="metrica-box Destaque">
+    <div class="metrica-box destaque">
       <span class="label">Margem Diária Permitida</span>
-      <span class="valor diário">{{ analiseFinanceira().margemGastoDiario | currency:'BRL' }}/dia</span>
+      <span class="valor diario">{{ analiseFinanceira().margemGastoDiario | currency:'BRL' }}/dia</span>
     </div>
   </div>
 
-  <!-- Barra de progresso visual do limite atingido -->
   <div class="barra-progresso-container">
     <div class="labels-barra">
       <span>Consumo da Meta</span>
@@ -62,7 +61,6 @@
     </div>
   </div>
 
-  <!-- Mensagem de Alerta Amigável caso estoure -->
   <div class="status-alerta" *ngIf="analiseFinanceira().estourouMeta">
     <mat-icon>warning_amber</mat-icon>
     <span>Você ultrapassou o teto recomendado para o perfil {{ perfisConfig[perfilSelecionado()].nome }}! Recomenda-se cortar despesas supérfluas imediatamente.</span>

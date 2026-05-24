@@ -1,0 +1,50 @@
+<div class="gerenciador-container" style="padding: 2rem; background: #fff; border-radius: 12px;">
+  <h3>Gerenciar Categorias</h3>
+
+  <div style="display: flex; gap: 10px; margin-bottom: 2rem;">
+    <input type="text" [(ngModel)]="novoNome" placeholder="Nome da categoria..." class="custom-input">
+    
+    <select [(ngModel)]="tipoSelecionado" class="custom-input">
+      <option value="despesa">Despesa</option>
+      <option value="receita">Receita</option>
+      <option value="investimento">Investimento</option>
+    </select>
+    
+    <button (click)="adicionar()" style="padding: 0.5rem 1rem;">Criar</button>
+  </div>
+
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr style="text-align: left; border-bottom: 2px solid #eee;">
+        <th>Nome</th>
+        <th>Vínculo (Tipo)</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cat of categoriaService.categorias()" style="border-bottom: 1px solid #eee; height: 45px;">
+        
+        <td>
+          <span *ngIf="idEmEdicao() !== cat.id">{{ cat.nome }}</span>
+          <input *ngIf="idEmEdicao() === cat.id" type="text" [(ngModel)]="nomeEdicao">
+        </td>
+        
+        <td>
+          <span class="badge" [ngClass]="cat.tipo">{{ cat.tipo | titlecase }}</span>
+        </td>
+        
+        <td>
+          <div *ngIf="idEmEdicao() !== cat.id" style="display: flex; gap: 8px;">
+            <button (click)="iniciarEdicao(cat)">Editar</button>
+            <button (click)="deletar(cat.id)" style="color: red;">Excluir</button>
+          </div>
+          <div *ngIf="idEmEdicao() === cat.id" style="display: flex; gap: 8px;">
+            <button (click)="salvarEdicao()">✓</button>
+            <button (click)="cancelarEdicao()">✕</button>
+          </div>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

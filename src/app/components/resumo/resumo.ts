@@ -12,13 +12,12 @@ import { Services } from '../../service/transacao';
 export class Resumo {
   private transacaoService = inject(Services);
 
-  // O computed monitora o sinal 'totais' do seu serviço.
-  // Sempre que o serviço atualizar a lista, este signal dispara um recálculo aqui.
   listaResumo = computed(() => {
     const valores = this.transacaoService.totais();
     return [
       { label: 'Entrada', value: valores.entradas, classe: 'entrada' },
       { label: 'Gasto', value: valores.saidas, classe: 'gasto' },
+      { label: 'Investimento', value: valores.investimentos, classe: 'investimento' },
       { label: 'Saldo', value: valores.saldo, classe: 'saldo' }
     ];
   });

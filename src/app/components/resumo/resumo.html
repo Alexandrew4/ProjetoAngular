@@ -1,12 +1,10 @@
-
 <div class="container-resumo">
-  <!-- O [ngClass] deve ficar dentro da tag div de abertura -->
   <div class="card-resumo" 
        *ngFor="let item of listaResumo()"
        [ngClass]="{
-         'card-positivo': item.label === 'Entrada' || item.label === 'Saldo' && item.value >= 0 , 
+         'card-positivo': item.label === 'Entrada' || (item.label === 'Saldo' && item.value >= 0), 
          'card-negativo': item.label === 'Gasto',
-         
+         'card-investimento': item.label === 'Investimento',
          'card-alerta': item.label === 'Saldo' && item.value < 0
        }">
     

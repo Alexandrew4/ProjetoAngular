@@ -1,7 +1,7 @@
 .card-formulario {
   background: var(--surface-card);
   border-radius: 16px;
-  padding: 2rem; /* Aumentado o preenchimento interno do card */
+  padding: 2rem; /* Seu preenchimento interno generoso */
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
   box-sizing: border-box;
@@ -13,13 +13,13 @@
   font-weight: 600;
   color: var(--text-primary);
   margin-top: 0;
-  margin-bottom: 2rem; /* Mais espaço após o título */
+  margin-bottom: 2rem; /* Seu espaço após o título */
 }
 
-/* Espaçamento maior e generoso entre os inputs */
+/* Espaçamento maior e generoso entre os inputs que você definiu */
 mat-form-field {
   width: 100%;
-  margin-bottom: 1.5rem; /* Aumentado de 0.5rem para 1.5rem */
+  margin-bottom: 1.5rem; 
 }
 
 .botoes-acao {
@@ -31,7 +31,133 @@ mat-form-field {
 
 .botoes-acao button {
   flex: 1;
-  padding: 24px 0 !important;
+  padding: 24px 0 !important; /* Seus botões robustos e elegantes */
   font-weight: 600;
   letter-spacing: 0.3px;
+}
+
+/* ==========================================================================
+   NOVAS REGRAS: Suporte ao Gerenciador de Categorias Inline 
+   (Mantendo o alinhamento e o grid original dos seus inputs de metade)
+   ========================================================================== */
+
+.container-categoria-dinamica {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.field-com-botao {
+  width: 100% !important;
+  flex: 1;
+}
+
+/* Alinha a engrenagem perfeitamente com a altura do mat-form-field outline */
+.btn-config-categoria {
+  margin-top: 6px;
+  color: var(--text-secondary, #64748b);
+}
+
+/* Painel flutuante de CRUD: Se adapta exatamente ao tamanho do input da metade */
+.painel-gerenciador-inline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: var(--surface-card, #ffffff);
+  border: 1px solid var(--border-color, #cbd5e1);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+.topo-painel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: var(--text-primary, #475569);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.topo-painel button {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+}
+
+.input-add-categoria {
+  display: flex;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--bg-primary, #f8fafc);
+}
+
+.input-add-categoria input {
+  flex: 1;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.lista-categorias-crud {
+  max-height: 140px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.item-categoria-crud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: var(--bg-secondary, #f1f5f9);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.icon-mini {
+  transform: scale(0.85);
+  color: var(--text-secondary, #64748b);
+}
+
+.icon-mini.deletar { color: #ef4444; }
+.icon-mini.sucesso { color: #10b981; }
+
+.input-edicao-inline {
+  flex: 1;
+  border: 1px solid var(--border-color, #cbd5e1);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  background: var(--surface-card);
+  color: var(--text-primary);
+}
+
+/* Estilização para o Toggle Group centralizado que colocamos no HTML */
+.center-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.custom-toggle-group {
+  border-radius: 24px !important;
+  border: 1px solid var(--border-color) !important;
+  overflow: hidden;
 }
