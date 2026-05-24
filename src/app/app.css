@@ -1,0 +1,54 @@
+:host {
+  display: block;
+}
+
+/* Área centralizadora do Dashboard */
+.dashboard-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Força o componente de resumo a quebrar linha no topo */
+app-resumo {
+  display: block;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+/* GRID PRINCIPAL: Corrige o bug do empilhamento */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile em coluna única */
+  gap: 2rem;
+  align-items: start;
+  width: 100%;
+}
+
+/* Computadores e Telas Grandes */
+@media (min-width: 992px) {
+  .dashboard-grid {
+    /* Formulário com tamanho perfeito fixo, tabela ganha a área flexível */
+    grid-template-columns: 380px minmax(0, 1fr);
+  }
+}
+
+/* Garante comportamento estrutural correto para tags do Angular */
+app-formulario, app-tabela {
+  display: block;
+  width: 100%;
+}
+
+/* Estilo da mensagem informativa de tela */
+.conteudo {
+  padding: 0.75rem 1.5rem;
+  margin: 1rem auto 0;
+  max-width: 1400px;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+}

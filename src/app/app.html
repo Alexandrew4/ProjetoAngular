@@ -1,25 +1,20 @@
 <app-menu (aoSelecionar)="mudarTela($event)"></app-menu>
+
 <div class="conteudo">
-    <p>Você está na tela:{{telaAtual}}</p>
+  <p>Você está na tela: {{ telaAtual }}</p>
 </div>
 
-
-
-<div class="app-container">
-  <!-- O componente de resumo no topo -->
+<!-- CONTAINER PRINCIPAL -->
+<div class="dashboard-container">
+  
   <app-resumo></app-resumo>
   
-  <!-- O seu formulário e tabela abaixo -->
-  <app-formulario></app-formulario>
+  <!-- O GRID QUE UNE OS DOIS -->
+  <div class="dashboard-grid">
+    <app-formulario #formComponent></app-formulario>
+    <app-tabela (editar)="formComponent.receberDadosParaEdicao($event)"></app-tabela>
+  </div>
+
 </div>
-
-
-
-
-
-
-
-
-<app-tabela></app-tabela>
 
 <router-outlet />

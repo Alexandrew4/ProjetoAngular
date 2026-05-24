@@ -1,266 +1,37 @@
- .dashboard-container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 1.5rem;
-      font-family: Roboto, "Helvetica Neue", sans-serif;
-      background-color: #f8fafc;
-      min-height: 100vh;
-    }
+.card-formulario {
+  background: var(--surface-card);
+  border-radius: 16px;
+  padding: 2rem; /* Aumentado o preenchimento interno do card */
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  box-sizing: border-box;
+  width: 100%;
+}
 
-    .dashboard-header {
-      margin-bottom: 2rem;
-      text-align: center;
-    }
+.titulo-formulario {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 2rem; /* Mais espaço após o título */
+}
 
-    .dashboard-header h1 {
-      margin: 0;
-      color: #0f172a;
-      font-size: 2.25rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
-    }
+/* Espaçamento maior e generoso entre os inputs */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1.5rem; /* Aumentado de 0.5rem para 1.5rem */
+}
 
-    .dashboard-header p {
-      margin: 0.5rem 0 0;
-      color: #64748b;
-      font-size: 1rem;
-    }
+.botoes-acao {
+  display: flex;
+  gap: 12px;
+  margin-top: 1rem;
+  width: 100%;
+}
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      align-items: start;
-    }
-
-    @media (min-width: 992px) {
-      .dashboard-grid {
-        grid-template-columns: 380px 1fr;
-      }
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-      border: 1px solid #f1f5f9;
-    }
-
-    h2 {
-      margin-top: 0;
-      margin-bottom: 1.5rem;
-      color: #1e293b;
-      font-weight: 600;
-      font-size: 1.25rem;
-    }
-
-    .card-header-table {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .card-header-table h2 {
-      margin-bottom: 0;
-    }
-
-    .form-row {
-      margin-bottom: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-    }
-
-    .form-row.center {
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .form-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    mat-form-field {
-      width: 100%;
-    }
-
-    mat-button-toggle-group {
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      overflow: hidden;
-      width: 100%;
-    }
-
-    mat-button-toggle {
-      flex: 1;
-      font-weight: 600;
-      height: 44px;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .btn-receita.mat-button-toggle-checked {
-      background-color: #d1fae5 !important;
-      color: #065f46 !important;
-    }
-
-    .btn-despesa.mat-button-toggle-checked {
-      background-color: #fee2e2 !important;
-      color: #991b1b !important;
-    }
-
-    mat-icon {
-      vertical-align: middle;
-      margin-right: 4px;
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-    }
-
-    .form-actions {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: flex-end;
-      gap: 8px;
-    }
-
-    .form-actions button[type="submit"] {
-      border-radius: 8px;
-      padding: 0 1.5rem;
-      height: 44px;
-      font-weight: 600;
-    }
-
-    .btn-cancel {
-      border-radius: 8px;
-      height: 44px;
-      color: #64748b;
-    }
-
-    .table-container {
-      min-width: 0; /* Impede o estouro da tabela em layouts grid */
-    }
-
-    .table-responsive {
-      overflow-x: auto;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-    }
-
-    table {
-      width: 100%;
-      background: #ffffff;
-      border-collapse: collapse;
-    }
-
-    th.mat-header-cell {
-      background-color: #f8fafc;
-      color: #475569;
-      font-weight: 600;
-      font-size: 0.875rem;
-      padding: 16px;
-      border-bottom: 1px solid #e2e8f0;
-    }
-
-    td.mat-cell {
-      padding: 16px;
-      color: #334155;
-      font-size: 0.875rem;
-      border-bottom: 1px solid #f1f5f9;
-    }
-
-    .text-bold {
-      font-weight: 500;
-      color: #0f172a !important;
-    }
-
-    .text-nowrap {
-      white-space: nowrap;
-    }
-
-    .cat-pill {
-      background-color: #f1f5f9;
-      color: #475569;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    /* Status Badges */
-    .status-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .status-chip.receita {
-      background-color: #d1fae5;
-      color: #065f46;
-    }
-
-    .status-chip.despesa {
-      background-color: #fee2e2;
-      color: #991b1b;
-    }
-
-    .status-chip mat-icon {
-      font-size: 14px;
-      width: 14px;
-      height: 14px;
-      margin: 0;
-    }
-
-    /* Cores de Valor */
-    .receita-color {
-      color: #10b981;
-    }
-
-    .despesa-color {
-      color: #ef4444;
-    }
-
-    /* Outras Badges */
-    .badge-total {
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding: 8px 16px;
-      border-radius: 8px;
-    }
-
-    .badge-total.positivo {
-      background-color: #ecfdf5;
-      color: #047857;
-      border: 1px solid #a7f3d0;
-    }
-
-    .badge-total.negativo {
-      background-color: #fef2f2;
-      color: #b91c1c;
-      border: 1px solid #fca5a5;
-    }
-
-    .actions-cell {
-      white-space: nowrap;
-    }
-
-    .empty-table {
-      text-align: center;
-      color: #64748b !important;
-      padding: 2rem !important;
-      font-style: italic;
-    }
-
-    .text-center {
-      text-align: center;
-    }
+.botoes-acao button {
+  flex: 1;
+  padding: 24px 0 !important;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}

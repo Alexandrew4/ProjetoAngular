@@ -1,52 +1,72 @@
-/* Container alinha os cartões lado a lado com espaçamento uniforme */
 .container-resumo {
   display: flex;
+  flex-direction: column; /* Mobile empilhado */
   gap: 16px;
-  justify-content: space-between;
-  margin: 20px 0;
+  margin: 1.5rem 0;
+  width: 100%;
 }
 
-/* Estilização individual de cada cartão */
+/* Força o card de receita a subir para o topo no Mobile */
+.card-resumo.card-positivo {
+  order: 1; /* Primeiro da fila */
+}
+
+.card-resumo.card-negativo {
+  order: 2; /* Segundo da fila */
+}
+
+/* O card de Saldo Total (ou alerta) fica por último */
+.card-resumo:not(.card-positivo):not(.card-negativo) {
+  order: 3; 
+}
+
+/* Computadores e Tablets Grandes */
+@media (min-width: 768px) {
+  .container-resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Volta ao grid padrão de 3 colunas */
+  }
+  
+  /* Reseta a ordem no desktop para seguir a sequência natural do seu HTML */
+  .card-resumo.card-positivo,
+  .card-resumo.card-negativo,
+  .card-resumo:not(.card-positivo):not(.card-negativo) {
+    order: unset;
+  }
+}
+
 .card-resumo {
-  flex: 1; /* Faz com que todos os 3 cartões tenham exatamente o mesmo tamanho */
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  gap: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Estilo do texto de identificação (Entrada, Gasto...) */
-.card-resumo {
-  font-size: 14px;
-  color: #666666;
+.card-resumo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-resumo p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-/* Estilo do valor numérico */
 .card-resumo span {
-  font-size: 24px;
-  color: #333333;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f172a;
 }
 
-.card-resumo {
-  padding: 20px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-}
-
-/* Cores específicas */
-.card-positivo { border-left: 5px solid #472b8a; background: #e8f5e9; color:#472b8a}
-.card-negativo { border-left: 5px solid #c51c10; background: #ffebee; color:#c51c10}
-
-
-/* Classe de alerta para saldo negativo */
-.card-alerta { 
-  border-left: 5px solid #d32f2f; 
-  background: #ffcdd2; 
-  color: #b71c1c;
-}
+.card-positivo { border-left: 5px solid #10b981; }
+.card-negativo { border-left: 5px solid #ef4444; }
+.card-alerta { border-left: 5px solid #dc2626; background-color: #fef2f2; }

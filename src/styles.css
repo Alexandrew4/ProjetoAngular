@@ -1,1 +1,22 @@
 @import 'material-design-icons-iconfont/dist/material-design-icons.css';
+
+/* Definição de Variáveis Modernas para o Projeto Todo */
+:root {
+  --bg-body: #f8fafc;
+  --surface-card: #ffffff;
+  --border-color: #e2e8f0;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --primary: #2563eb;
+  --success: #10b981;
+  --danger: #ef4444;
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-body);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: var(--text-primary);
+}

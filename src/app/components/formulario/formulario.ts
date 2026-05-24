@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, effect } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,9 +8,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Services } from '../../service/transacao';
+
 
 @Component({
   selector: 'app-formulario',
@@ -27,40 +27,45 @@ import { Services } from '../../service/transacao';
     MatDatepickerModule,
     MatButtonToggleModule,
     MatIconModule,
-    MatTableModule,
-    MatNativeDateModule
-  ]
+    MatNativeDateModule,
+      ]
 })
 export class FormularioComponent implements OnInit {
-  // Injeção de dependência moderna
   private transacaoService = inject(Services);
   private fb = inject(FormBuilder);
 
   transacaoForm: FormGroup;
-  dataSource = new MatTableDataSource<any>();
-  colunasExibidas: string[] = ['data', 'descricao', 'categoria', 'tipo', 'valor', 'acoes'];
   editandoId: number | null = null;
-  categoriasFiltradas: string[] = ['Alimentação', 'Transporte', 'Lazer', 'Saúde', 'Outros'];
+  
+  private categoriasReceita: string[] = ['Salário', 'Investimentos', 'Freelance', 'Outros'];
+  private categoriasDespesa: string[] = ['Alimentação', 'Transporte', 'Lazer', 'Saúde', 'Moradia', 'Outros'];
+  categoriasFiltradas: string[] = [];
 
   constructor() {
     this.transacaoForm = this.fb.group({
       descricao: ['', Validators.required],
       categoria: ['', Validators.required],
       data: [new Date(), Validators.required],
-      valor: [0, [Validators.required, Validators.min(0.01)]],
-      tipo: ['despesa']
-    });
-
-    // Sincronização automática da tabela sempre que o sinal de transações mudar
-    effect(() => {
-      this.dataSource.data = this.transacaoService.transacoes();
+      valor: [null, [Validators.required, Validators.min(0.01)]],
+      tipo: ['despesa', Validators.required]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.atualizarCategorias(this.transacaoForm.get('tipo')?.value);
 
-  // O HTML chama este método no (ngSubmit)
+    this.transacaoForm.get('tipo')?.valueChanges.subscribe(tipo => {
+      this.atualizarCategorias(tipo);
+      this.transacaoForm.get('categoria')?.setValue('');
+    });
+  }
+
+  atualizarCategorias(tipo: 'receita' | 'despesa'): void {
+    this.categoriasFiltradas = tipo === 'receita' ? this.categoriasReceita : this.categoriasDespesa;
+  }
+
   onSubmit(): void {
+    if (this.transacaoForm.invalid) return;
     this.salvarTransacao();
   }
 
@@ -69,29 +74,22 @@ export class FormularioComponent implements OnInit {
   }
 
   salvarTransacao(): void {
-    if (this.transacaoForm.invalid) return;
-
     if (this.isEdicao) {
       this.transacaoService.editar(this.editandoId!, this.transacaoForm.value);
     } else {
       this.transacaoService.adicionar(this.transacaoForm.value);
     }
-    
     this.limparFormulario();
   }
 
-// Adicione este método dentro da classe FormularioComponent
   cancelarEdicao(): void {
     this.limparFormulario();
   }
 
-  carregarEdicao(transacao: any): void {
+  // Método disparado quando a tabela emitir o evento de edição
+  receberDadosParaEdicao(transacao: any): void {
     this.editandoId = transacao.id;
     this.transacaoForm.patchValue(transacao);
-  }
-
-  deletarTransacao(id: number): void {
-    this.transacaoService.deletar(id);
   }
 
   limparFormulario(): void {
@@ -99,7 +97,7 @@ export class FormularioComponent implements OnInit {
     this.transacaoForm.reset({ 
       tipo: 'despesa', 
       data: new Date(),
-      valor: 0 
+      valor: null
     });
   }
 }

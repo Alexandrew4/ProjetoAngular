@@ -7,10 +7,12 @@ import { Tabela } from './components/tabela/tabela';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Tabela,Menu, Resumo, FormularioComponent ],
+  standalone: true, // <--- ADICIONE ESTA LINHA AQUI
+  imports: [RouterOutlet, Tabela, Menu, Resumo, FormularioComponent ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
+
 export class App {
 
   telaAtual:string = 'home';
