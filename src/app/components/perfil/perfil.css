@@ -1,0 +1,171 @@
+.card-perfil {
+  background: var(--surface-card);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+}
+
+.header-perfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.titulo-bloco {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titulo-bloco h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.titulo-bloco .sub {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.icon-principal {
+  color: var(--primary);
+  font-size: 32px !important;
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.select-perfil {
+  min-width: 200px;
+}
+
+.select-perfil ::v-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none; /* limpa o espaço de erro do Material para achatar o design */
+}
+
+.infos-tempo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-body);
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+.infos-tempo .mini-icon {
+  font-size: 16px !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.divisor {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 1.25rem 0;
+}
+
+.grid-metricas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metrica-box {
+  background: var(--bg-body);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metrica-box.destaque {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.metrica-box .label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.metrica-box .valor {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.metrica-box .valor.diario {
+  color: var(--primary);
+}
+
+.alerta-texto {
+  color: var(--danger) !important;
+}
+
+/* Barra de consumo */
+.barra-progresso-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.labels-barra {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.barra-trilho {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.barra-preenchimento {
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s ease-out;
+}
+
+.bg-sucesso { background-color: #10b981; }
+.bg-alerta { background-color: #f59e0b; }
+.bg-perigo { background-color: #ef4444; }
+
+.status-alerta {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-alerta mat-icon {
+  color: #dc2626;
+  font-size: 20px !important;
+  width: 20px !important;
+  height: 20px !important;
+}

@@ -1,0 +1,70 @@
+<div class="card-perfil">
+  <div class="header-perfil">
+    <div class="titulo-bloco">
+      <mat-icon class="icon-principal">psychology</mat-icon>
+      <div>
+        <h3>Simulador de Perfil Financeiro</h3>
+        <p class="sub">Projeções e limites de gastos</p>
+      </div>
+    </div>
+    
+    <mat-form-field appearance="outline" class="select-perfil">
+      <mat-label>Seu Perfil</mat-label>
+      <mat-select [value]="perfilSelecionado()" (selectionChange)="mudarPerfil($event.value)">
+        <mat-option value="conservador">💎 Conservador (50%)</mat-option>
+        <mat-option value="moderado">⚖️ Moderado (70%)</mat-option>
+        <mat-option value="arrojado">🚀 Arrojado (85%)</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="infos-tempo">
+    <mat-icon class="mini-icon">calendar_today</mat-icon>
+    <span>Restam <strong>{{ dadosTempo().diasRestantes }} dias</strong> para encerrar o mês corrente.</span>
+  </div>
+
+  <hr class="divisor">
+
+  <div class="grid-metricas">
+    <div class="metrica-box">
+      <span class="label">Teto do Perfil (Mensal)</span>
+      <span class="valor">{{ analiseFinanceira().limiteTotalGastos | currency:'BRL' }}</span>
+    </div>
+
+    <div class="metrica-box">
+      <span class="label">Disponível para Gastar</span>
+      <span class="valor" [ngClass]="{'alerta-texto': analiseFinanceira().saldoDisponivelParaGastar === 0}">
+        {{ analiseFinanceira().saldoDisponivelParaGastar | currency:'BRL' }}
+      </span>
+    </div>
+
+    <div class="metrica-box Destaque">
+      <span class="label">Margem Diária Permitida</span>
+      <span class="valor diário">{{ analiseFinanceira().margemGastoDiario | currency:'BRL' }}/dia</span>
+    </div>
+  </div>
+
+  <!-- Barra de progresso visual do limite atingido -->
+  <div class="barra-progresso-container">
+    <div class="labels-barra">
+      <span>Consumo da Meta</span>
+      <span>{{ analiseFinanceira().percentualDoLimiteAtingido | number:'1.0-0' }}%</span>
+    </div>
+    <div class="barra-trilho">
+      <div class="barra-preenchimento" 
+           [style.width.%]="Math.min(analiseFinanceira().percentualDoLimiteAtingido, 100)"
+           [ngClass]="{
+             'bg-sucesso': analiseFinanceira().percentualDoLimiteAtingido <= 70,
+             'bg-alerta': analiseFinanceira().percentualDoLimiteAtingido > 70 && analiseFinanceira().percentualDoLimiteAtingido <= 100,
+             'bg-perigo': analiseFinanceira().estourouMeta
+           }">
+      </div>
+    </div>
+  </div>
+
+  <!-- Mensagem de Alerta Amigável caso estoure -->
+  <div class="status-alerta" *ngIf="analiseFinanceira().estourouMeta">
+    <mat-icon>warning_amber</mat-icon>
+    <span>Você ultrapassou o teto recomendado para o perfil {{ perfisConfig[perfilSelecionado()].nome }}! Recomenda-se cortar despesas supérfluas imediatamente.</span>
+  </div>
+</div>

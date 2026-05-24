@@ -4,11 +4,12 @@ import { Menu } from './components/menu/menu';
 import { Resumo } from './components/resumo/resumo';
 import { FormularioComponent } from './components/formulario/formulario';
 import { Tabela } from './components/tabela/tabela';
+import { PerfilFinanceiroComponent } from './components/perfil/perfil';
 
 @Component({
   selector: 'app-root',
   standalone: true, // <--- ADICIONE ESTA LINHA AQUI
-  imports: [RouterOutlet, Tabela, Menu, Resumo, FormularioComponent ],
+  imports: [RouterOutlet, Tabela, Menu, Resumo, FormularioComponent,PerfilFinanceiroComponent ],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
