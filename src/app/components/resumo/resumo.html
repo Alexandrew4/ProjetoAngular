@@ -1,3 +1,14 @@
+<div class="filtro-container">
+  <label for="filtro-mes">Filtrar por Mês:</label>
+  <input 
+    type="month" 
+    id="filtro-mes" 
+    [value]="mesSelecionado()" 
+    (change)="onMesChange($event)" 
+    class="input-mes"
+  />
+</div>
+
 <div class="container-resumo">
   <div class="card-resumo" 
        *ngFor="let item of listaResumo()"

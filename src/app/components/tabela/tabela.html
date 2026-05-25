@@ -2,9 +2,9 @@
   <div class="header-historico">
     <div class="titulo-secao">
       <h2>Histórico de Transações</h2>
-      <span class="contador-transacoes">
-        {{ dataSource().data.length }} {{ dataSource().data.length === 1 ? 'registro' : 'registros' }}
-      </span>
+     <span class="contador-transacoes">
+  {{ dataSource().filteredData.length }} {{ dataSource().filteredData.length === 1 ? 'registro' : 'registros' }}
+</span>
     </div>
 
     <div class="filtros-wrapper">

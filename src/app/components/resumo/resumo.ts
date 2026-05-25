@@ -1,16 +1,21 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Services } from '../../service/transacao';
+import { FormsModule } from '@angular/forms'; // Importe o FormsModule para usar o [(ngModel)]
 
 @Component({
   selector: 'app-resumo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './resumo.html',
   styleUrl: './resumo.css',
 })
 export class Resumo {
   private transacaoService = inject(Services);
+
+  // Expõe o valor do filtro atual para o template
+  mesSelecionado = this.transacaoService.dataFiltro;
+
 
   listaResumo = computed(() => {
     const valores = this.transacaoService.totais();
@@ -21,4 +26,15 @@ export class Resumo {
       { label: 'Saldo', value: valores.saldo, icone: 'account_balance_wallet', ordemMobile: 4 }
     ];
   });
+
+// Método chamado quando o usuário altera o mês no <input>
+  onMesChange(evento: Event): void {
+    const elemento = evento.target as HTMLInputElement;
+    if (elemento?.value) {
+      this.transacaoService.alterarMesFiltro(elemento.value);
+    }
+  }
+
+
+
 }

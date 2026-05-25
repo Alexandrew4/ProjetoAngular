@@ -74,11 +74,20 @@ export class FormularioComponent implements OnInit {
 
   onSubmit(): void {
     if (this.transacaoForm.invalid) return;
-    if (this.isEdicao) {
-      this.transacaoService.editar(this.editandoId!, this.transacaoForm.value);
-    } else {
-      this.transacaoService.adicionar(this.transacaoForm.value);
-    }
+   
+   // Criamos uma cópia dos dados do formulário
+  const dadosFormulario = { ...this.transacaoForm.value };
+
+  // Força a data a se transformar em String ISO estável para evitar conflitos de fuso entre Objeto Date e String
+  if (dadosFormulario.data instanceof Date) {
+    dadosFormulario.data = dadosFormulario.data.toISOString();
+  }
+
+  if (this.isEdicao) {
+    this.transacaoService.editar(this.editandoId!, dadosFormulario);
+  } else {
+    this.transacaoService.adicionar(dadosFormulario);
+  }
     this.limparFormulario();
   }
 
