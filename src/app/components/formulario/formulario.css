@@ -1,245 +1,166 @@
-/* ==========================================================================
-   1. ESTRUTURA E CARD DO FORMULÁRIO
-   ========================================================================== */
+
+
 
 .card-formulario {
-  background: var(--surface-card);
+  background: var(--surface-card, #ffffff);
   border-radius: 16px;
-  padding: 2rem; /* Seu preenchimento interno generoso */
-  box-shadow: var(--shadow-md);
-  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.05));
+  border: 1px solid var(--border-color, #e2e8f0);
   box-sizing: border-box;
   width: 100%;
 }
 
-.titulo-formulario {
+.card-formulario h2 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--text-primary, #0f172a);
   margin-top: 0;
-  margin-bottom: 2rem; /* Seu espaço após o título */
+  margin-bottom: 1.5rem;
 }
 
-/* Espaçamento maior e generoso entre os inputs que você definiu */
-mat-form-field {
-  width: 100%;
-  margin-bottom: 1.5rem; 
-}
-
-
-/* ==========================================================================
-   2. SELETOR DE TIPO DE TRANSAÇÃO (Vertical & Sem falhas de borda)
-   ========================================================================== */
-
-.center-toggle {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 2rem;
-  width: 100%;
-}
-
-/* Container Principal do Grupo Toggle */
-.custom-toggle-group {
-  display: flex !important;
-  flex-direction: column !important; /* Empilha os botões um em cima do outro */
-  width: 100%;
-  border: 1px solid var(--border-color) !important;
-  border-radius: 12px !important; /* Arredondamento limpo nas pontas */
-  overflow: hidden; /* Impede que o fundo dos botões "vaze" nas curvas */
-  background: transparent !important;
-}
-
-/* Ajuste individual de cada botão */
-.custom-toggle-group mat-button-toggle {
-  width: 100%;
-  border-right: none !important; /* Remove as bordas laterais nativas do Material */
-  border-left: none !important;
-  border-top: none !important;
-  border-bottom: 1px solid var(--border-color) !important; /* Divisória horizontal perfeita */
-  background: var(--surface-card, #ffffff);
-  transition: background-color 0.2s ease;
-}
-
-/* Remove a borda inferior do último botão para não duplicar com o container */
-.custom-toggle-group mat-button-toggle:last-child {
-  border-bottom: none !important;
-}
-
-/* Limpa estilos residuais do botão HTML nativo injetado pelo Angular Material */
-.custom-toggle-group ::v-deep button.mat-button-toggle-button {
-  border-radius: 0 !important;
-  border: none !important;
-}
-
-/* Alinhamento do conteúdo (Ícone + Texto) */
-.custom-toggle-group ::v-deep .mat-button-toggle-label-content {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 10px;
-  width: 100%;
-  padding: 14px 0 !important; /* Altura robusta e elegante */
-  font-weight: 600;
-  color: var(--text-secondary, #64748b);
-}
-
-/* Estados ativos do Toggle (Selecionado) */
-.custom-toggle-group mat-button-toggle.mat-button-toggle-checked {
-  background-color: var(--bg-secondary, #f1f5f9) !important;
-}
-
-.custom-toggle-group mat-button-toggle.mat-button-toggle-checked ::v-deep .mat-button-toggle-label-content {
-  color: var(--text-primary) !important;
-}
-
-/* Cores dinâmicas nos ícones quando selecionados */
-.custom-toggle-group mat-button-toggle.toggle-despesa.mat-button-toggle-checked mat-icon {
-  color: #ef4444; /* Vermelho */
-}
-.custom-toggle-group mat-button-toggle.toggle-investimento.mat-button-toggle-checked mat-icon {
-  color: #3b82f6; /* Azul */
-}
-.custom-toggle-group mat-button-toggle.toggle-receita.mat-button-toggle-checked mat-icon {
-  color: #10b981; /* Verde */
-}
-
-
-/* ==========================================================================
-   3. GERENCIADOR DE CATEGORIAS INLINE (Suporte ao CRUD Dinâmico)
-   ========================================================================== */
-
-.container-categoria-dinamica {
-  position: relative;
-  display: flex;
-  align-items: center; /* Alinha o mat-form-field e a engrenagem perfeitamente pelo centro */
-  gap: 8px; /* Espaço curto e controlado para o botão não desgarrar */
-  margin-bottom: 1.5rem; /* ALTERAÇÃO: Cria o distanciamento perfeito em relação ao campo da data abaixo */
-}
-
-.field-com-botao {
-  width: 100% !important;
-  flex: 1;
-  margin-bottom: 0 !important; /* Mantém zerado para o botão não quebrar a linha */
-}
-
-/* Ajuste fino na engrenagem de configuração para colar ao mat-form-field */
-.btn-config-categoria {
-  margin: 0 !important; 
-  padding: 0 !important;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-secondary, #64748b);
-  transform: translateY(-2px); /* Compensação sutil para centralizar com o estilo outline do Material */
-}
-
-/* Painel flutuante de CRUD: Se adapta exatamente ao tamanho do input da metade */
-.painel-gerenciador-inline {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: var(--surface-card, #ffffff);
-  border: 1px solid var(--border-color, #cbd5e1);
-  border-radius: 12px;
-  padding: 12px;
-  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
-  z-index: 10;
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  box-sizing: border-box;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
 }
 
-.topo-painel {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.75rem;
-  font-weight: bold;
-  color: var(--text-primary, #475569);
+.form-group label {
+  font-size: 0.7rem;
+  color: var(--text-secondary, #64748b);
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.topo-painel button {
-  width: 28px;
-  height: 28px;
-  line-height: 28px;
-}
-
-.input-add-categoria {
-  display: flex;
+.form-group input,
+.form-group select {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: inherit;
   border: 1px solid var(--border-color, #e2e8f0);
   border-radius: 8px;
-  overflow: hidden;
-  background: var(--bg-primary, #f8fafc);
-}
-
-.input-add-categoria input {
-  flex: 1;
-  border: none;
-  padding: 8px 12px;
-  font-size: 0.85rem;
+  background-color: var(--surface-card, #ffffff);
+  color: var(--text-primary, #0f172a);
   outline: none;
-  background: transparent;
-  color: var(--text-primary);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  height: 40px;
+  box-sizing: border-box;
 }
 
-.lista-categorias-crud {
-  max-height: 140px;
-  overflow-y: auto;
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary, #3f51b5);
+  box-shadow: 0 0 0 2px rgba(63, 81, 181, 0.1);
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.botoes-container {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
 }
 
-.item-categoria-crud {
+button {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;
-  background: var(--bg-secondary, #f1f5f9);
-  border-radius: 6px;
-  font-size: 0.85rem;
-  color: var(--text-primary);
-}
-
-.icon-mini {
-  transform: scale(0.85);
-  color: var(--text-secondary, #64748b);
-}
-
-.icon-mini.deletar { color: #ef4444; }
-.icon-mini.sucesso { color: #10b981; }
-
-.input-edicao-inline {
-  flex: 1;
-  border: 1px solid var(--border-color, #cbd5e1);
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 0.85rem;
-  background: var(--surface-card);
-  color: var(--text-primary);
-}
-
-
-/* ==========================================================================
-   4. BOTÕES DE AÇÃO DO FORMULÁRIO (Submeter / Cancelar)
-   ========================================================================== */
-
-.botoes-acao {
-  display: flex;
-  gap: 12px;
-  margin-top: 1rem;
+  justify-content: center;
+  height: 40px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
   width: 100%;
 }
 
-.botoes-acao button {
-  flex: 1;
-  padding: 24px 0 !important; /* Seus botões robustos e elegantes */
+button:active {
+  transform: scale(0.98);
+}
+
+.btn-salvar {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.btn-salvar:hover {
+  background-color: #1d4ed8;
+}
+
+.btn-salvar.modo-edicao {
+  background-color: #10b981;
+}
+
+.btn-salvar.modo-edicao:hover {
+  background-color: #059669;
+}
+
+.btn-cancelar {
+  background-color: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-cancelar:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+
+
+.input-inline-group {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+}
+
+.input-flex-main {
+  flex: 1 !important; 
+}
+
+.btn-add-rapido {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  background-color: #f1f5f9;
+  color: #2563eb;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 8px;
+  font-size: 1.25rem;
   font-weight: 600;
-  letter-spacing: 0.3px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.btn-add-rapido:hover {
+  background-color: #e2e8f0;
+  color: #1d4ed8;
+}
+
+.btn-voltar-selecao {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.btn-voltar-selecao:hover {
+  background-color: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+
+.input-nova-animacao {
+  border-color: #3b82f6 !important;
+  background-color: #f8fafc !important;
 }

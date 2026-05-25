@@ -1,50 +1,81 @@
-<div class="gerenciador-container" style="padding: 2rem; background: #fff; border-radius: 12px;">
+<div class="gerenciador-container">
   <h3>Gerenciar Categorias</h3>
 
-  <div style="display: flex; gap: 10px; margin-bottom: 2rem;">
-    <input type="text" [(ngModel)]="novoNome" placeholder="Nome da categoria..." class="custom-input">
+  <div class="inputs-criacao-container">
+    <input 
+      type="text" 
+      [(ngModel)]="novoNome" 
+      placeholder="Nome da categoria..." 
+      class="custom-input"
+      (keyup.enter)="adicionar()"
+    />
     
-    <select [(ngModel)]="tipoSelecionado" class="custom-input">
+    <select [(ngModel)]="tipoSelecionado" class="custom-input select-tipo">
       <option value="despesa">Despesa</option>
       <option value="receita">Receita</option>
       <option value="investimento">Investimento</option>
     </select>
     
-    <button (click)="adicionar()" style="padding: 0.5rem 1rem;">Criar</button>
+    <button class="btn-criar" (click)="adicionar()">Criar</button>
   </div>
 
-  <table style="width: 100%; border-collapse: collapse;">
+  <table class="tabela-categorias">
     <thead>
-      <tr style="text-align: left; border-bottom: 2px solid #eee;">
+      <tr>
         <th>Nome</th>
         <th>Vínculo (Tipo)</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let cat of categoriaService.categorias()" style="border-bottom: 1px solid #eee; height: 45px;">
-        
-        <td>
-          <span *ngIf="idEmEdicao() !== cat.id">{{ cat.nome }}</span>
-          <input *ngIf="idEmEdicao() === cat.id" type="text" [(ngModel)]="nomeEdicao">
-        </td>
-        
-        <td>
-          <span class="badge" [ngClass]="cat.tipo">{{ cat.tipo | titlecase }}</span>
-        </td>
-        
-        <td>
-          <div *ngIf="idEmEdicao() !== cat.id" style="display: flex; gap: 8px;">
-            <button (click)="iniciarEdicao(cat)">Editar</button>
-            <button (click)="deletar(cat.id)" style="color: red;">Excluir</button>
-          </div>
-          <div *ngIf="idEmEdicao() === cat.id" style="display: flex; gap: 8px;">
-            <button (click)="salvarEdicao()">✓</button>
-            <button (click)="cancelarEdicao()">✕</button>
-          </div>
-        </td>
+      @for (cat of categoriaService.categorias(); track cat.id) {
+        <tr [class.linha-editando]="idEmEdicao() === cat.id">
+          
+          <td>
+            @if (idEmEdicao() !== cat.id) {
+              <span class="nome-categoria">{{ cat.nome }}</span>
+            } @else {
+              <input 
+                type="text" 
+                [(ngModel)]="nomeEdicao" 
+                class="input-edicao"
+                (keyup.enter)="salvarEdicao()"
+                (keyup.escape)="cancelarEdicao()"
+                focusOnInit
+              />
+            }
+          </td>
+          
+          <td>
+            <span class="badge" [ngClass]="cat.tipo">
+              {{ cat.tipo | titlecase }}
+            </span>
+          </td>
+          
+          <td>
+            @if (idEmEdicao() !== cat.id) {
+              <div class="acoes-buttons">
+                <button class="btn-tabela btn-editar" (click)="iniciarEdicao(cat)">
+                  Editar
+                </button>
+                <button class="btn-tabela btn-excluir" (click)="deletar(cat.id)">
+                  Excluir
+                </button>
+              </div>
+            } @else {
+              <div class="acoes-buttons">
+                <button class="btn-tabela btn-sucesso" (click)="salvarEdicao()">✓</button>
+                <button class="btn-tabela btn-cancelar-tab" (click)="cancelarEdicao()">✕</button>
+              </div>
+            }
+          </td>
 
-      </tr>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="3" class="tabela-vazia">Nenhuma categoria cadastrada ainda.</td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>

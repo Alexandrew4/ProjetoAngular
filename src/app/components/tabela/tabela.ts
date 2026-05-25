@@ -1,4 +1,5 @@
-// src/app/components/tabela/tabela.ts
+
+
 import { Component, Output, EventEmitter, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
@@ -25,7 +26,7 @@ export class Tabela {
 
   colunasExibidas: string[] = ['data', 'descricao', 'categoria', 'tipo', 'valor', 'acoes'];
 
-  // Vincula diretamente aos signals independentes do serviço
+  
   filtroSelecionado = this.transacaoService.filtroTipo;
   dataInicio = this.transacaoService.dataInicio;
   dataFim = this.transacaoService.dataFim;

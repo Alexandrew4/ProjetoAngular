@@ -1,17 +1,18 @@
+// src/app/components/gerenciar-categorias/categoria.ts
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-// CORREÇÃO: Puxando do arquivo correto 'service/categoria'
 import { Categoria, CategoriaService } from '../../service/categoria';
 
 @Component({
   selector: 'app-gerenciar-categorias',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './categoria.html', // Alterado para bater com seu arquivo físico na pasta
+  templateUrl: './categoria.html', 
   styleUrls: ['./categoria.css']
 })
 export class GerenciarCategoriasComponent {
+ 
   public categoriaService = inject(CategoriaService);
 
   novoNome = '';

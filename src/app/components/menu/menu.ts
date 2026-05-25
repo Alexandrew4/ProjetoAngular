@@ -18,7 +18,7 @@ interface MenuItem {
   styleUrl: './menu.css'
 })
 export class Menu {
-  // Recebe do app.ts o estado atual para ativar as classes CSS de seleção
+  
   @Input() telaAtiva: string = 'todas'; 
   
   @Output() aoSelecionar = new EventEmitter<string>();

@@ -4,21 +4,22 @@
 
 .container-resumo {
   display: flex;
-  flex-direction: column; /* Empilhado no mobile */
+  flex-direction: column;
+  
   gap: 16px;
   margin: 1.5rem 0;
   width: 100%;
 }
 
-/* Telas Maiores (Computadores e Tablets) */
+
 @media (min-width: 768px) {
   .container-resumo {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colunas bem distribuídas */
+    grid-template-columns: repeat(4, 1fr); 
   }
   
   .card-resumo {
-    order: unset !important; /* Reseta o comportamento de ordem no desktop */
+    order: unset !important; 
   }
 }
 
@@ -45,7 +46,7 @@
   box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.08));
 }
 
-/* Alinhamento do cabeçalho interno do Card */
+
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -68,7 +69,7 @@
   color: var(--text-primary, #0f172a);
 }
 
-/* Estilo Base dos Círculos dos Ícones */
+
 .card-icon {
   display: flex;
   align-items: center;
@@ -86,7 +87,7 @@
    VARIAÇÕES DE CORES DOS CARDS (Identidade Visual Premium)
    ========================================================================== */
 
-/* 1. Entrada (Verde Confiável) */
+
 .card-entrada {
   background: linear-gradient(135deg, #ffffff, #f0fdf4);
   border-left: 5px solid #10b981;
@@ -96,7 +97,7 @@
   color: #15803d;
 }
 
-/* 2. Gasto (Vermelho Elegante) */
+
 .card-gasto {
   background: linear-gradient(135deg, #ffffff, #fef2f2);
   border-left: 5px solid #ef4444;
@@ -106,7 +107,7 @@
   color: #b91c1c;
 }
 
-/* 3. Investimento (Azul de Crescimento) */
+
 .card-investimento {
   background: linear-gradient(135deg, #ffffff, #eff6ff);
   border-left: 5px solid #3b82f6;
@@ -116,7 +117,7 @@
   color: #1d4ed8;
 }
 
-/* 4. Saldo Positivo (Roxo de Patrimônio Estável) */
+
 .card-saldo-positivo {
   background: linear-gradient(135deg, #ffffff, #faf5ff);
   border-left: 5px solid #8b5cf6;
@@ -126,7 +127,7 @@
   color: #6d28d9;
 }
 
-/* 5. Saldo Negativo (Alerta Crítico) */
+
 .card-saldo-negativo {
   background: linear-gradient(135deg, #ffffff, #fff5f5);
   border-left: 5px solid #dc2626;

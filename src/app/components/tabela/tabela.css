@@ -10,7 +10,8 @@
   width: 100%;
 }
 
-/* Estrutura do Cabeçalho com Filtros */
+
+
 .header-historico {
   display: flex;
   justify-content: space-between;
@@ -44,7 +45,7 @@
   width: fit-content;
 }
 
-/* Elementos dos Filtros */
+
 .filtros-wrapper {
   display: flex;
   align-items: flex-end;
@@ -140,7 +141,7 @@ input[type="date"].custom-input {
   background-color: #fafafa !important;
 }
 
-/* Componentes Visuais (Badges e Cores) */
+
 .badge-categoria {
   background: #f1f5f9;
   color: var(--text-secondary);
@@ -194,7 +195,7 @@ input[type="date"].custom-input {
   text-overflow: ellipsis;
 }
 
-/* Botões de Ações */
+
 .action-header { width: 100px; }
 .action-cells { display: flex; justify-content: center; gap: 4px; }
 
@@ -206,7 +207,7 @@ input[type="date"].custom-input {
 .btn-action.edit:hover mat-icon { color: var(--primary); }
 .btn-action.delete:hover mat-icon { color: var(--danger); }
 
-/* Tela Vazia */
+
 .empty-table-cell { padding: 48px 16px !important; }
 .empty-state {
   display: flex;
@@ -222,7 +223,7 @@ input[type="date"].custom-input {
   margin-bottom: 1rem;
 }
 
-/* Configurações de Data para Desktop */
+
 .data-resumida { display: none; }
 .data-completa { display: inline; }
 

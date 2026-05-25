@@ -12,8 +12,8 @@
   
   @if (telaAtual === 'transação' || telaAtual === 'todas') {
     <div class="modulo-transacoes">
-      <app-formulario></app-formulario>
-      <app-tabela></app-tabela>
+      <app-formulario #formComponent></app-formulario>
+      <app-tabela (editar)="formComponent.preencherFormulario($event)"></app-tabela>
     </div>
   }
 

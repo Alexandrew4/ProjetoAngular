@@ -19,11 +19,11 @@ export class Services {
   private transacoesSignal = signal<Transacao[]>(this.carregarDadosIniciais());
   transacoes = this.transacoesSignal.asReadonly();
 
-  // Filtro exclusivo do Resumo e Perfil (Mês atual 'YYYY-MM')
+  
   private dataFiltroSignal = signal<string>(this.obterMesAtual());
   dataFiltro = this.dataFiltroSignal.asReadonly();
 
-  // Filtros exclusivos da Tabela Histórica
+  
   filtroTipo = signal<string>('todos');
   dataInicio = signal<string>('');
   dataFim = signal<string>('');
@@ -44,7 +44,7 @@ export class Services {
     this.dataFiltroSignal.set(anoMes);
   }
 
-  // 1. CANAL RESUMO: Computa os totais olhando apenas o mês selecionado no topo
+  
   totais = computed(() => {
     const listaCompleta = this.transacoesSignal();
     const filtroMes = this.dataFiltroSignal();
@@ -68,7 +68,7 @@ export class Services {
     };
   });
 
-  // 2. CANAL TABELA: Filtra o histórico de forma independente dos cards superiores
+ 
   transacoesFiltradas = computed(() => {
     const listaCompleta = this.transacoesSignal();
     const tipo = this.filtroTipo();

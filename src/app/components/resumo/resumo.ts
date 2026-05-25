@@ -1,7 +1,7 @@
 import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Services } from '../../service/transacao';
-import { FormsModule } from '@angular/forms'; // Importe o FormsModule para usar o [(ngModel)]
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-resumo',
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms'; // Importe o FormsModule para usar
 export class Resumo {
   private transacaoService = inject(Services);
 
-  // Expõe o valor do filtro atual para o template
+  
   mesSelecionado = this.transacaoService.dataFiltro;
 
 
@@ -27,7 +27,7 @@ export class Resumo {
     ];
   });
 
-// Método chamado quando o usuário altera o mês no <input>
+
   onMesChange(evento: Event): void {
     const elemento = evento.target as HTMLInputElement;
     if (elemento?.value) {

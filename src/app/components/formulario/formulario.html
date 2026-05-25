@@ -1,112 +1,100 @@
-<div class="card-formulario animate-up">
-  <div class="header-form">
-    <h2 class="titulo-formulario">{{ isEdicao ? 'Editar Lançamento' : 'Novo Lançamento' }}</h2>
-  </div>
-
-  <form [formGroup]="transacaoForm" (ngSubmit)="onSubmit()" class="custom-form">
+<div class="card-formulario">
+  <h2>{{ editandoId() ? 'Editar Movimentação' : 'Nova Movimentação' }}</h2>
+  
+  <form (ngSubmit)="$event.preventDefault()">
     
-    <div class="form-group full-width center-toggle">
-      <mat-button-toggle-group formControlName="tipo" aria-label="Tipo de Transação" class="custom-toggle-group">
-        <mat-button-toggle value="despesa" class="toggle-despesa">
-          <mat-icon>arrow_downward</mat-icon> Despesa
-        </mat-button-toggle>
-        <mat-button-toggle value="investimento" class="toggle-investimento">
-          <mat-icon>trending_up</mat-icon> Investimento
-        </mat-button-toggle>
-        <mat-button-toggle value="receita" class="toggle-receita">
-          <mat-icon>arrow_upward</mat-icon> Receita
-        </mat-button-toggle>
-      </mat-button-toggle-group>
+    <div class="form-group">
+      <label for="tipo">Tipo</label>
+      <select id="tipo" [ngModel]="tipo()" name="tipo" (change)="mudarTipo($event)">
+        <option value="receita">Receita</option>
+        <option value="despesa">Despesa</option>
+        <option value="investimento">Investimento</option>
+      </select>
     </div>
 
-    <div class="form-group full-width">
-      <mat-form-field appearance="outline" class="custom-field">
-        <mat-label>Descrição</mat-label>
-        <input matInput formControlName="descricao" placeholder="Ex: Mercado, LCI Prefixada, Freelance...">
-        <mat-error *ngIf="transacaoForm.get('descricao')?.hasError('required')">A descrição é obrigatória</mat-error>
-      </mat-form-field>
-    </div>
+    <div class="form-group">
+      <label for="categoria">Categoria</label>
+      <div class="input-inline-group">
+        
+        @if (!criandoNovaCategoria()) {
+          <select id="categoria" [(ngModel)]="categoria" name="categoria" class="input-flex-main">
+            <option value="" disabled selected>Selecione uma categoria</option>
+            @for (cat of categoriasFiltradas(); track cat.id) {
+              <option [value]="cat.nome">{{ cat.nome }}</option>
+            }
+          </select>
+          
+          <button type="button" class="btn-add-rapido" (click)="alternarModoCategoria()" title="Cadastrar nova categoria">
+            +
+          </button>
+        } @else {
+          <input 
+            type="text" 
+            id="categoriaNova" 
+            [(ngModel)]="categoria" 
+            name="categoria" 
+            placeholder="Nova categoria..."
+            class="input-flex-main input-nova-animacao"
+            autocomplete="off"
+          />
+          
+          <button type="button" class="btn-add-rapido btn-voltar-selecao" (click)="alternarModoCategoria()" title="Voltar para a lista">
+            ↩
+          </button>
+        }
 
-    <div class="form-group input-metade">
-      <mat-form-field appearance="outline" class="custom-field">
-        <mat-label>Valor (R$)</mat-label>
-        <input matInput type="number" formControlName="valor" placeholder="0,00" step="0.01">
-        <mat-error *ngIf="transacaoForm.get('valor')?.hasError('required')">O valor é obrigatório</mat-error>
-        <mat-error *ngIf="transacaoForm.get('valor')?.hasError('min')">O valor deve ser maior que zero</mat-error>
-      </mat-form-field>
-    </div>
-
-    <div class="form-group input-metade container-categoria-dinamica">
-      <ng-container *ngIf="!modoGerenciarCategorias()">
-        <mat-form-field appearance="outline" class="custom-field field-com-botao">
-          <mat-label>Categoria</mat-label>
-          <mat-select formControlName="categoria">
-            <mat-option *ngFor="let cat of categoriasFiltradas()" [value]="cat.nome">
-              {{ cat.nome }}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="transacaoForm.get('categoria')?.hasError('required')">A categoria é obrigatória</mat-error>
-        </mat-form-field>
-        <button mat-icon-button type="button" class="btn-config-categoria" 
-                (click)="alternarGerenciadorCategorias()" matTooltip="Gerenciar Categorias deste Tipo">
-          <mat-icon>settings</mat-icon>
-        </button>
-      </ng-container>
-
-      <div *ngIf="modoGerenciarCategorias()" class="painel-gerenciador-inline">
-        <div class="topo-painel">
-          <span>Categorias de {{ transacaoForm.get('tipo')?.value | titlecase }}</span>
-          <button mat-icon-button type="button" (click)="fecharGerenciadorCategorias()"><mat-icon>close</mat-icon></button>
-        </div>
-
-        <div class="input-add-categoria">
-          <input type="text" [placeholder]="'Nova categoria de ' + transacaoForm.get('tipo')?.value" 
-                 [ngModel]="novaCategoriaNome()" (ngModelChange)="novaCategoriaNome.set($event)" [ngModelOptions]="{standalone: true}">
-          <button mat-icon-button type="button" (click)="adicionarNovaCategoria()"><mat-icon>add</mat-icon></button>
-        </div>
-
-        <div class="lista-categorias-crud">
-          <div *ngFor="let cat of categoriasFiltradas()" class="item-categoria-crud">
-            <ng-container *ngIf="idCategoriaEmEdicao() !== cat.id">
-              <span class="nome-cat">{{ cat.nome }}</span>
-              <div class="acoes-cat">
-                <button mat-icon-button type="button" (click)="iniciarEdicaoCategoria(cat)"><mat-icon class="icon-mini">edit</mat-icon></button>
-                <button mat-icon-button type="button" (click)="deletarCategoria(cat.id)"><mat-icon class="icon-mini deletar">delete</mat-icon></button>
-              </div>
-            </ng-container>
-
-            <ng-container *ngIf="idCategoriaEmEdicao() === cat.id">
-              <input type="text" [ngModel]="nomeCategoriaEdicao()" (ngModelChange)="nomeCategoriaEdicao.set($event)" [ngModelOptions]="{standalone: true}" class="input-edicao-inline">
-              <div class="acoes-cat">
-                <button mat-icon-button type="button" (click)="salvarEdicaoCategoria()"><mat-icon class="icon-mini sucesso">check</mat-icon></button>
-                <button mat-icon-button type="button" (click)="idCategoriaEmEdicao.set(null)"><mat-icon class="icon-mini">close</mat-icon></button>
-              </div>
-            </ng-container>
-          </div>
-        </div>
       </div>
     </div>
 
-    <div class="form-group full-width">
-      <mat-form-field appearance="outline" class="custom-field">
-        <mat-label>Data da Operação</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="data" [max]="hoje">
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="transacaoForm.get('data')?.hasError('required')">A data é obrigatória</mat-error>
-        <mat-error *ngIf="transacaoForm.get('data')?.hasError('dataFutura')">Não são permitidos lançamentos futuros</mat-error>
-      </mat-form-field>
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <input 
+        type="text" 
+        id="descricao" 
+        [(ngModel)]="descricao" 
+        name="descricao" 
+        placeholder="Ex: Supermercado"
+        autocomplete="off"
+      />
     </div>
 
-    <div class="botoes-acao">
-      <button *ngIf="isEdicao" mat-stroked-button type="button" class="btn-cancelar" (click)="cancelarEdicao()">
-        Cancelar
+    <div class="form-group">
+      <label for="valor">Valor (R$)</label>
+      <input 
+        type="number" 
+        id="valor" 
+        [(ngModel)]="valor" 
+        name="valor" 
+        placeholder="0,00"
+        step="0.01"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="data">Data</label>
+      <input 
+        type="date" 
+        id="data" 
+        [(ngModel)]="data" 
+        name="data"
+      />
+    </div>
+
+    <div class="botoes-container">
+      <button 
+        type="button" 
+        class="btn-salvar" 
+        [class.modo-edicao]="editandoId()" 
+        (click)="salvar()"
+      >
+        {{ editandoId() ? 'Atualizar' : 'Adicionar' }}
       </button>
-      <button mat-flat-button type="submit" [disabled]="transacaoForm.invalid || modoGerenciarCategorias()" 
-              [class.btn-salvar]="!isEdicao" [class.btn-atualizar]="isEdicao">
-        <mat-icon>{{ isEdicao ? 'check' : 'add' }}</mat-icon>
-        {{ isEdicao ? 'Atualizar' : 'Salvar Registro' }}
-      </button>
+
+      @if (editandoId()) {
+        <button type="button" class="btn-cancelar" (click)="limparFormulario()">
+          Cancelar
+        </button>
+      }
     </div>
 
   </form>
